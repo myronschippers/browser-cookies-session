@@ -11,12 +11,12 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const favoriteCreature = getCookie('favoriteCreature');
+        // const favoriteCreature = getCookie('favoriteCreature');
         this.getServerCookie();
-        console.log(favoriteCreature);
-        this.setState({
-            favoriteCreature,
-        });
+        // console.log(favoriteCreature);
+        // this.setState({
+        //     favoriteCreature,
+        // });
     }
     
     changeFavoriteAnimal = (event) => {
@@ -26,9 +26,10 @@ class App extends Component {
     }
 
     saveCreature = (event) => {
-        setCookie('favoriteCreature', this.state.enteredCreature); 
+        // setCookie('favoriteCreature', this.state.enteredCreature); 
+        this.postServerCookie(this.state.enteredCreature)
         this.setState({
-            favoriteCreature: this.state.enteredCreature,
+            // favoriteCreature: this.state.enteredCreature,
             enteredCreature: '',
         });
     }
@@ -44,10 +45,13 @@ class App extends Component {
     // - create interactions with the Back-End API
     // ------------------------------------------------------------
 
-    getServerCookie() {
+    getServerCookie = () => {
         axios.get('/api/creature')
             .then((response) => {
                 console.log(response.data);
+                this.setState({
+                    favoriteCreature: response.data.favoriteCreature,
+                });
             })
             .catch((err) => {
                 console.error(err);
@@ -56,9 +60,10 @@ class App extends Component {
     }
 
     postServerCookie(postData) {
-        axios.post('/api/creature', postData)
+        axios.post('/api/creature', { favoriteCreature: postData })
             .then((response) => {
                 console.log(response.data);
+                this.getServerCookie();
             })
             .catch((err) => {
                 console.error(err);
