@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { setCookie, getCookie } from '../../services/cookies';
-import axios from 'axios';
 
 class App extends Component {
     state = {
@@ -11,7 +10,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.getCreatures();
+        const favoriteCreature = getCookie('favoriteCreature');
+        console.log(favoriteCreature);
+        this.setState({
+            favoriteCreature,
+        });
     }
     
     changeFavoriteAnimal = (event) => {
@@ -21,8 +24,9 @@ class App extends Component {
     }
 
     saveCreature = (event) => {
-        this.postCreature(this.state.enteredCreature);
+        setCookie('favoriteCreature', this.state.enteredCreature); 
         this.setState({
+            favoriteCreature: this.state.enteredCreature,
             enteredCreature: '',
         });
     }
@@ -37,35 +41,35 @@ class App extends Component {
     // API Calls
     // ------------------------------------------------------------
 
-    getCreatures() {
-        axios.get('/api/creature')
-            .then((response) => {
-                console.log(response);
-                let isEditable = true;
-                if (response.data.fantasticCreature) {
-                    isEditable = false;
-                }
-                this.setState({
-                    favoriteCreature: response.data.fantasticCreature,
-                    isEditable,
-                });
-            })
-            .catch((err) => {
-                console.log('GET Error: ', err);
-            });
-    }
+    // getCreatures() {
+    //     axios.get('/api/creature')
+    //         .then((response) => {
+    //             console.log(response);
+    //             let isEditable = true;
+    //             if (response.data.fantasticCreature) {
+    //                 isEditable = false;
+    //             }
+    //             this.setState({
+    //                 favoriteCreature: response.data.fantasticCreature,
+    //                 isEditable,
+    //             });
+    //         })
+    //         .catch((err) => {
+    //             console.log('GET Error: ', err);
+    //         });
+    // }
 
-    postCreature(creatureName) {
-        axios.post('/api/creature', {
-            fantasticCreature: creatureName
-        })
-            .then((response) => {
-                this.getCreatures();
-            })
-            .catch((err) => {
-                console.log('POST Error: ', err);
-            });
-    }
+    // postCreature(creatureName) {
+    //     axios.post('/api/creature', {
+    //         fantasticCreature: creatureName
+    //     })
+    //         .then((response) => {
+    //             this.getCreatures();
+    //         })
+    //         .catch((err) => {
+    //             console.log('POST Error: ', err);
+    //         });
+    // }
 
     render() {
         let editRegion = <div className="container">
