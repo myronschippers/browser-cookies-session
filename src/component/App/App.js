@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { setCookie, getCookie } from '../../services/cookies';
+import axios from 'axios';
 
 class App extends Component {
     state = {
@@ -11,6 +12,7 @@ class App extends Component {
 
     componentDidMount() {
         const favoriteCreature = getCookie('favoriteCreature');
+        this.getServerCookie();
         console.log(favoriteCreature);
         this.setState({
             favoriteCreature,
@@ -41,6 +43,27 @@ class App extends Component {
     // API Calls
     // - create interactions with the Back-End API
     // ------------------------------------------------------------
+
+    getServerCookie() {
+        axios.get('/api/creature')
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+
+    }
+
+    postServerCookie(postData) {
+        axios.post('/api/creature', postData)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
 
     render() {
         let editRegion = <div className="container">
