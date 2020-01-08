@@ -24,9 +24,8 @@ app.post('/api/creature', (req, res) => {
 });
 
 // retrieve the creature stored with cookie session
-app.get('/api/creature', (req,res) => {
-    // if there is a call to get creature re-save creature to cookieSession otherwise set session to null 
-    // get saved information
+app.get('/api/creature', (req, res) => {
+    // get saved cookie information
 
     res.send({
       fantasticCreature: 'CREATURE'
