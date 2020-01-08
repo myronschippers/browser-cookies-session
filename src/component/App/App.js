@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import { setCookie, getCookie } from '../../services/cookies';
 import axios from 'axios';
 
 class App extends Component {
