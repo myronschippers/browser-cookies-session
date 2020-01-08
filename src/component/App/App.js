@@ -39,37 +39,8 @@ class App extends Component {
 
     //
     // API Calls
+    // - create interactions with the Back-End API
     // ------------------------------------------------------------
-
-    // getCreatures() {
-    //     axios.get('/api/creature')
-    //         .then((response) => {
-    //             console.log(response);
-    //             let isEditable = true;
-    //             if (response.data.fantasticCreature) {
-    //                 isEditable = false;
-    //             }
-    //             this.setState({
-    //                 favoriteCreature: response.data.fantasticCreature,
-    //                 isEditable,
-    //             });
-    //         })
-    //         .catch((err) => {
-    //             console.log('GET Error: ', err);
-    //         });
-    // }
-
-    // postCreature(creatureName) {
-    //     axios.post('/api/creature', {
-    //         fantasticCreature: creatureName
-    //     })
-    //         .then((response) => {
-    //             this.getCreatures();
-    //         })
-    //         .catch((err) => {
-    //             console.log('POST Error: ', err);
-    //         });
-    // }
 
     render() {
         let editRegion = <div className="container">
